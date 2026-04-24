@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-main-layout',
   imports: [RouterOutlet],
   template: `
-    <main class="min-h-2/3 w-full max-w-300 mx-auto px-6 py-8 ">
+    <main class="min-h-2/3 w-full max-w-300 mx-auto px-6 pb-8 ">
       <router-outlet />
     </main>
   `,

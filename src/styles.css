@@ -5,13 +5,17 @@
   --color-primary: var(--deep-leather);
   --color-secondary: var(--aged-parchment);
   --color-text-primary: var(--old-ink);
+  --color-danger:var(--danger);
   --color-accent: var(--burnished-amber);
+  --color-light: var(--light);
 
   /* Definiamo i valori specifici */
   --deep-leather: #2d1b0d;      /* Marrone scurissimo (Rilegature) */
   --aged-parchment: #f4ece1;    /* Crema caldo (Pagine invecchiate) */
   --old-ink: #3d342d;           /* Grigio fango scuro (Inchiostro) */
   --burnished-amber: #b45309;   /* Ambra/Bronzo (Dettagli in oro) */
+  --danger: #E63946;
+  --light: #fff;
 }
 
 html, body {

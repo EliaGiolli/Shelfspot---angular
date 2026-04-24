@@ -1,0 +1,45 @@
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-auto md:h-[600px]">
+    
+    <div class="md:col-span-2 md:row-span-2 bg-primary/50 rounded-3xl p-8 md:p-12 flex flex-col justify-center text-secondary shadow-xl relative overflow-hidden">
+      <div class="relative z-10">
+        <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight">
+          Keep your stories <br> <span class="text-accent">in order.</span>
+        </h1>
+        <p class="mt-6 text-secondary/70 text-lg max-w-md">
+          A sophisticated tool for modern readers. Catalog your collection and track your loans with ease.
+        </p>
+        <button class="mt-8 px-6 py-3 bg-danger text-primary font-bold rounded-full hover:scale-105 transition-transform w-fit">
+          Get Started
+        </button>
+      </div>
+      <app-icon name="book.svg" [size]="300" class="absolute -bottom-10 -right-10 opacity-10 rotate-12" />
+    </div>
+
+    <div class="bg-white rounded-3xl p-6 shadow-sm border border-primary/5 flex flex-col justify-between group hover:border-accent transition-colors">
+      <div class="flex justify-between items-center">
+        <span class="text-xs font-bold uppercase tracking-widest text-primary/40">Quick Search</span>
+        <app-icon name="search.svg" [size]="35" class="text-accent" />
+      </div>
+      <div class="mt-4">
+        <div class="h-2 w-full bg-secondary rounded-full mb-2"></div>
+        <div class="h-2 w-3/4 bg-secondary rounded-full"></div>
+      </div>
+      <p class="text-primary font-medium text-sm">Find any edition in seconds.</p>
+    </div>
+
+    <div class="md:row-span-2 bg-accent/20 rounded-3xl overflow-hidden relative group">
+      <img src="assets/images/library-background.jpg" 
+           class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+           alt="Feature book">
+      <div class="absolute inset-0 bg-linear-to-t from-primary/80 to-transparent flex items-end p-6">
+        <p class="text-secondary font-serif italic text-xl">Curated Picks</p>
+      </div>
+    </div>
+
+    <div class="bg-accent rounded-3xl p-6 flex flex-col justify-center items-center text-center text-primary shadow-lg">
+        <span class="text-4xl font-bold font-serif">12</span>
+        <span class="text-xs font-bold uppercase tracking-tighter opacity-70">Books Currently Lent</span>
+        <app-icon name="user.svg" [size]="40" class="mt-2" />
+    </div>
+
+  </div>
