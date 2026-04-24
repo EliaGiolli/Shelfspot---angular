@@ -1,0 +1,59 @@
+<header class="sticky top-0 z-1000 w-full border-b border-accent/20 bg-primary px-6 backdrop-blur-md">
+  <div class="mx-auto flex max-w-300 items-center justify-between py-4">
+    
+    <a routerLink="/" 
+       class="text-2xl font-extrabold text-accent transition-opacity hover:opacity-80 font-serif">
+      SHELFSPOT
+    </a>
+
+    <button (click)="toggleMenu()" 
+            class="block p-2 text-secondary md:hidden cursor-pointer" 
+            aria-label="Toggle menu">
+      <app-icon 
+        [name]="isMenuOpen() ? CLOSE_ICON : MENU_ICON" 
+        [size]="45">
+      </app-icon>
+    </button>
+
+    <nav [style.height]="isMenuOpen() ? 'calc(100dvh - 70px)' : '0px'"
+         class="fixed top-16 left-0 w-full overflow-y-auto bg-primary/95 flex flex-col items-center transition-[height] duration-300 ease-in-out md:static md:h-auto md:w-auto md:flex-row md:bg-transparent md:gap-8 md:overflow-visible">
+      
+      <a routerLink="/" 
+         routerLinkActive="!text-accent" 
+         [routerLinkActiveOptions]="{exact: true}" 
+         (click)="isMenuOpen.set(false)"
+         class="w-full py-6 text-center text-lg font-medium text-secondary/80 transition-colors hover:text-accent md:w-auto md:py-0 md:text-base border-b border-accent/10 md:border-none">
+         Homepage
+      </a>
+
+      <a routerLink="/books/search" 
+         routerLinkActive="!text-accent" 
+         (click)="isMenuOpen.set(false)"
+         class="w-full py-6 text-center text-lg font-medium text-secondary/80 transition-colors hover:text-accent md:w-auto md:py-0 md:text-base border-b border-accent/10 md:border-none">
+         Search Books
+      </a>
+
+      <a routerLink="/books/favorites" 
+         routerLinkActive="!text-accent" 
+         (click)="isMenuOpen.set(false)"
+         class="w-full py-6 text-center text-lg font-medium text-secondary/80 transition-colors hover:text-accent md:w-auto md:py-0 md:text-base border-b border-accent/10 md:border-none">
+         Favorites
+      </a>
+
+      <a routerLink="/books/loans" 
+         routerLinkActive="!text-accent" 
+         (click)="isMenuOpen.set(false)"
+         class="w-full py-6 text-center text-lg font-medium text-secondary/80 transition-colors hover:text-accent md:w-auto md:py-0 md:text-base border-b border-accent/10 md:border-none">
+         Loans
+      </a>
+
+      <a routerLink="/contacts" 
+         routerLinkActive="!text-accent" 
+         (click)="isMenuOpen.set(false)"
+         class="w-full py-6 text-center text-lg font-medium text-secondary/80 transition-colors hover:text-accent md:w-auto md:py-0 md:text-base">
+         Contact me
+      </a>
+      
+    </nav>
+  </div>
+</header>

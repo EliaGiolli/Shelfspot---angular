@@ -1,0 +1,37 @@
+<footer class="mt-auto border-t border-accent/30 bg-primary px-6 pt-7 pb-8">
+  <div class="mx-auto flex max-w-300 flex-col items-center gap-10">
+    
+    <div class="text-center">
+      <h2 class="mb-2 text-2xl font-extrabold tracking-tight text-accent font-serif">
+        SHELFSPOT
+      </h2>
+      <p class="text-sm md:text-base text-secondary/90 italic">
+        Let's build something amazing together.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-8 md:gap-12">
+      <a href="#" target="_blank" 
+         class="group flex items-center gap-3 text-sm font-medium text-secondary transition-all duration-200 hover:-translate-y-1 hover:text-accent">
+        <app-icon name="googlemaps.svg" [size]="40" />
+        <span class="border-b border-transparent group-hover:border-accent">Map</span>
+      </a>
+      
+      <a href="#" target="_blank" 
+         class="group flex items-center gap-3 text-sm font-medium text-secondary transition-all duration-200 hover:-translate-y-1 hover:text-accent">
+        <app-icon name="linkedin.svg" [size]="40" />
+        <span class="border-b border-transparent group-hover:border-accent">LinkedIn</span>
+      </a>
+
+      <a href="mailto:eliagiolli22@gmail.com" 
+         class="group flex items-center gap-3 text-sm font-medium text-secondary transition-all duration-200 hover:-translate-y-1 hover:text-accent">
+        <app-icon name="mail.svg" [size]="40" />
+        <span class="border-b border-transparent group-hover:border-accent">Email</span>
+      </a>
+    </div>
+
+    <div class="mt-4 text-xs text-secondary/60 border-t border-secondary/10 pt-8 w-full text-center">
+      &copy; {{ currentYear }} ShelfSpot. Built with Angular & OpenLibrary API.
+    </div>
+  </div>
+</footer>

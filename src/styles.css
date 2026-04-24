@@ -1,20 +1,43 @@
 @import "tailwindcss";
 
 @theme {
-  /* Estendiamo la palette con nomi semantici */
-  /* Ora puoi usare: bg-primary, text-primary, border-primary */
-  --color-primary: var(--oxford-blue);
-  --color-secondary: var(--paper-white);
-  --color-accent: var(--bookish-amber);
+  /* Nuova Palette "Library Heritage" */
+  --color-primary: var(--deep-leather);
+  --color-secondary: var(--aged-parchment);
+  --color-text-primary: var(--old-ink);
+  --color-accent: var(--burnished-amber);
 
   /* Definiamo i valori specifici */
-  --oxford-blue: #1a2b3c;
-  --paper-white: #f9f7f2;
-  --bookish-amber: #d97706;
+  --deep-leather: #2d1b0d;      /* Marrone scurissimo (Rilegature) */
+  --aged-parchment: #f4ece1;    /* Crema caldo (Pagine invecchiate) */
+  --old-ink: #3d342d;           /* Grigio fango scuro (Inchiostro) */
+  --burnished-amber: #b45309;   /* Ambra/Bronzo (Dettagli in oro) */
+}
 
-  /* Se vuoi mantenere l'accesso ai colori originali di Tailwind 
-     ma con i tuoi nomi, puoi mapparli così: */
-  --color-success: var(--color-emerald-600);
-  --color-danger: var(--color-red-600);
-  --color-warning: var(--color-amber-500);
+html, body {
+  margin: 0;
+  overflow-x: hidden;
+  /* Usiamo le variabili Tailwind v4 appena definite */
+  background-color: var(--color-secondary);
+  color: var(--color-text-primary);
+  font-family: 'Poppins', system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* GLOBAL TYPOGRAPHY */
+h1, h2, h3, strong {
+    color: var(--color-primary); /* I titoli usano il marrone pelle per contrasto */
+    font-weight: 700; 
+    letter-spacing: -0.01em;
+}
+
+p, span, li {
+    color: var(--color-text-primary);
+    line-height: 1.7; /* Leggermente più arioso per favorire la lettura */
+}
+
+/* Un tocco di classe: selezione del testo color carta/oro */
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-secondary);
 }
