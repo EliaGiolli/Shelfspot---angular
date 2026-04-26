@@ -1,0 +1,30 @@
+/* @reference imports only the definitions of classes and variables without generating extra CSS in the final file */
+@reference "../../../../styles.css";
+
+
+/* Stile base per l'host del componente */
+:host {
+  @apply inline-flex items-center justify-center rounded-full px-8 py-4 
+         font-bold transition-all duration-200 cursor-pointer 
+         active:scale-95 focus:outline-hidden;
+}
+
+/* Varianti basate sulla classe calcolata dal computed */
+:host(.btn-primary) {
+  @apply bg-primary text-secondary shadow-lg hover:bg-primary/90;
+}
+
+:host(.btn-accent) {
+  /* Usiamo il tuo Rosso Ceralacca */
+  @apply bg-danger text-white shadow-[0_10px_20px_-10px_rgba(230,57,70,0.5)] 
+         hover:bg-danger;
+}
+
+:host(.btn-outline) {
+  @apply border-2 border-primary text-primary hover:bg-primary hover:text-secondary;
+}
+
+/* Stato disabled */
+:host(.disabled) {
+  @apply opacity-50 cursor-not-allowed grayscale pointer-events-none;
+}
