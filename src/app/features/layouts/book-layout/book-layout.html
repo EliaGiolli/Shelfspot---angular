@@ -1,1 +1,53 @@
-<router-outlet/>
+<div class="flex h-screen overflow-hidden bg-secondary/10 m-0">
+  
+  <aside 
+    [class.w-64]="!isCollapsed()" 
+    [class.w-20]="isCollapsed()"
+    [class.justify-center]="isCollapsed()"
+    [class.items-center]="isCollapsed()"
+    class="flex flex-col h-full bg-primary/40 text-secondary transition-all duration-300 border-r border-primary/10 shadow-xl"
+  >
+    <div class="p-6 flex items-center justify-between">
+      @if (!isCollapsed()) {
+        <span class="font-serif font-bold text-xl text-accent italic">ShelfSpot</span>
+      }
+      <button (click)="toggleSidebar()" class="p-2 hover:bg-secondary/10 rounded-lg transition-colors">
+        <app-icon [name]="isCollapsed() ? 'menu.svg' : 'arrow-left.svg'" [size]="40" />
+      </button>
+    </div>
+
+    <nav class="flex-1 mt-4 px-3 space-y-2">
+        @for (item of menuItems; track item.path) {
+            <a 
+                [routerLink]="item.path"
+                routerLinkActive="bg-accent text-white"
+                class="flex items-center p-3 rounded-xl transition-all group relative"
+                
+                [appTooltip]="item.label"
+                [appTooltipEnabled]="isCollapsed()" 
+            >
+            <app-icon [name]="item.icon" [size]="40" class="min-w-6" />
+            
+            <span 
+                class="ml-4 font-medium transition-opacity duration-200"
+                [class.opacity-0]="isCollapsed()"
+                [class.hidden]="isCollapsed()"
+            >
+                {{ item.label }}
+            </span>
+
+            </a>
+        }
+    </nav>
+  </aside>
+
+  <main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <header class="h-16 border-b border-primary/5 bg-white flex items-center px-8">
+      <h2 class="text-primary/50 font-medium uppercase text-xs tracking-widest">Dashboard / Books</h2>
+    </header>
+
+    <section class="grow overflow-y-auto p-8 custom-scrollbar">
+      <router-outlet />
+    </section>
+  </main>
+</div>

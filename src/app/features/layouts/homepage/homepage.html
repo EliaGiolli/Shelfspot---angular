@@ -1,74 +1,77 @@
-<section class="p-6 md:p-12 bg-secondary/30" aria-label="Introduzione">
-  <app-herosection />
-</section>
-
-<section class="my-16 px-6 max-w-6xl mx-auto" aria-labelledby="benefits-title">
-  <div class="py-16 px-8 text-secondary">
-    <h2 id="benefits-title" class="text-danger text-4xl font-serif font-bold mb-12 text-center">
-      Why Choose ShelfSpot?
+<section class="grow container mx-auto px-4 py-8">
+  
+  <div class="p-6 md:p-12 bg-secondary/30" aria-label="Introduzione">
+    <app-herosection />
+  </div>
+  
+  <section class="my-16 px-6 max-w-6xl mx-auto" aria-labelledby="benefits-title">
+    <div class="py-16 px-8 text-secondary">
+      <h2 id="benefits-title" class="text-danger text-4xl font-serif font-bold mb-12 text-center">
+        Why Choose ShelfSpot?
+      </h2>
+      <div class="grid gap-10 md:grid-cols-3">
+        @for (benefit of benefits; track benefit.title) {
+          <article class="flex flex-col items-center text-center p-6 rounded-2xl bg-light border-l-4 border-danger">
+            <div class="text-5xl mb-6 filter drop-shadow-md" aria-hidden="true">{{ benefit.icon }}</div>
+            <h3 class="text-xl font-bold mb-3 font-serif italic">{{ benefit.title }}</h3>
+            <p class="text-secondary/80 leading-relaxed">{{ benefit.description }}</p>
+          </article>
+        } @empty {
+          <p class="text-center col-span-3">More benefits coming soon.</p>
+        }
+      </div>
+    </div>
+  </section>
+  
+  <section class="my-16 px-6 max-w-6xl mx-auto " aria-labelledby="reviews-title">
+    <h2 id="reviews-title" class="text-primary text-3xl font-serif font-bold mb-10 text-center">
+      What Our Readers Say
     </h2>
-    <div class="grid gap-10 md:grid-cols-3">
-      @for (benefit of benefits; track benefit.title) {
-        <article class="flex flex-col items-center text-center p-6 rounded-2xl bg-light border-l-4 border-danger">
-          <div class="text-5xl mb-6 filter drop-shadow-md" aria-hidden="true">{{ benefit.icon }}</div>
-          <h3 class="text-xl font-bold mb-3 font-serif italic">{{ benefit.title }}</h3>
-          <p class="text-secondary/80 leading-relaxed">{{ benefit.description }}</p>
-        </article>
+    <div class="grid gap-6 md:grid-cols-3">
+      @for (review of reviews; track review.name) {
+        <blockquote class="bg-light p-8 rounded-2xl shadow-sm border-l-4 border-danger relative">
+          <app-icon name="quote" [size]="24" class="text-text-primary/20 absolute top-4 right-4" />
+          <p class="mb-6 italic text-primary/80 leading-relaxed">"{{ review.text }}"</p>
+          <cite class="text-sm text-danger font-bold not-italic">— {{ review.name }}</cite>
+        </blockquote>
       } @empty {
-        <p class="text-center col-span-3">More benefits coming soon.</p>
+        <p class="text-center col-span-3 italic">No reviews yet. Be the first to share your experience!</p>
       }
     </div>
-  </div>
-</section>
-
-<section class="my-16 px-6 max-w-6xl mx-auto " aria-labelledby="reviews-title">
-  <h2 id="reviews-title" class="text-primary text-3xl font-serif font-bold mb-10 text-center">
-    What Our Readers Say
-  </h2>
-  <div class="grid gap-6 md:grid-cols-3">
-    @for (review of reviews; track review.name) {
-      <blockquote class="bg-light p-8 rounded-2xl shadow-sm border-l-4 border-danger relative">
-        <app-icon name="quote" [size]="24" class="text-text-primary/20 absolute top-4 right-4" />
-        <p class="mb-6 italic text-primary/80 leading-relaxed">"{{ review.text }}"</p>
-        <cite class="text-sm text-danger font-bold not-italic">— {{ review.name }}</cite>
-      </blockquote>
-    } @empty {
-      <p class="text-center col-span-3 italic">No reviews yet. Be the first to share your experience!</p>
-    }
-  </div>
-</section>
-
-<section class="my-20 p-6 max-w-3xl mx-auto" aria-labelledby="faq-title">
-  <h2 id="faq-title" class="text-primary text-3xl font-serif font-bold mb-10 text-center">Frequently Asked Questions</h2>
+  </section>
   
-  <div class="space-y-4">
-    @for (faq of faqs; track faq.question; let i = $index) {
-      <div class="bg-light rounded-md border-l-4 border-danger px-2">
-        <button 
-          (click)="toggleFaq(i)"
-          [attr.aria-expanded]="expandedIndex() === i"
-          class="w-full py-6 flex justify-between items-center text-left font-bold text-primary hover:text-danger transition-colors focus:outline-none"
-        >
-          <span class="text-lg font-serif">{{ faq.question }}</span>
-          <span class="transform transition-transform duration-300" [class.rotate-180]="expandedIndex() === i">
-            <app-icon name="chevron-down.svg" [size]="40" />
-          </span>
-        </button>
-        
-        <div 
-          class="overflow-hidden transition-all duration-300"
-          [style.max-height]="expandedIndex() === i ? '200px' : '0px'"
-        >
-          <p class="p-3 text-primary/70 leading-relaxed bg-accent/30">
-            {{ faq.answer }}
-          </p>
+  <section class="my-20 p-6 max-w-3xl mx-auto" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="text-primary text-3xl font-serif font-bold mb-10 text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-4">
+      @for (faq of faqs; track faq.question; let i = $index) {
+        <div class="bg-light rounded-md border-l-4 border-danger px-2">
+          <button 
+            (click)="toggleFaq(i)"
+            [attr.aria-expanded]="expandedIndex() === i"
+            class="w-full py-6 flex justify-between items-center text-left font-bold text-primary hover:text-danger transition-colors focus:outline-none"
+          >
+            <span class="text-lg font-serif">{{ faq.question }}</span>
+            <span class="transform transition-transform duration-300" [class.rotate-180]="expandedIndex() === i">
+              <app-icon name="chevron-down.svg" [size]="40" />
+            </span>
+          </button>
+          
+          <div 
+            class="overflow-hidden transition-all duration-300"
+            [style.max-height]="expandedIndex() === i ? '200px' : '0px'"
+          >
+            <p class="p-3 text-primary/70 leading-relaxed bg-accent/30">
+              {{ faq.answer }}
+            </p>
+          </div>
         </div>
-      </div>
-    }
-  </div>
-</section>
-<section class="bg-light py-16 px-6 max-w-6xl mx-auto text-center rounded-md shadow-lg">
-    <h2 class="text-accent text-4xl font-extrabold mb-6">Ready to Dive In?</h2>
-    <p class="max-w-xl mx-auto mb-10 text-lg">Contact us today to borrow your favorite books and start your adventure!</p>
-    <a href="/books/loans" aria-label="Contact us to borrow books" class="inline-block font-semibold rounded-lg px-10 py-4 shadow-lg transition bg-danger text-light hover:bg-danger/80">Borrow a Book Now!</a>
+      }
+    </div>
+  </section>
+  <section class="bg-light py-16 px-6 max-w-6xl mx-auto text-center rounded-md shadow-lg">
+      <h2 class="text-accent text-4xl font-extrabold mb-6">Ready to Dive In?</h2>
+      <p class="max-w-xl mx-auto mb-10 text-lg">Contact us today to borrow your favorite books and start your adventure!</p>
+      <a href="/books/loans" aria-label="Contact us to borrow books" class="inline-block font-semibold rounded-lg px-10 py-4 shadow-lg transition bg-danger text-light hover:bg-danger/80">Borrow a Book Now!</a>
+  </section>
 </section>
