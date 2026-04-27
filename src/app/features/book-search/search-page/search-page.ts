@@ -2,7 +2,6 @@ import {
   Component, 
   inject, 
   signal, 
-  OnInit 
 } from '@angular/core';
 import { 
   FormControl, 
@@ -10,18 +9,22 @@ import {
   ReactiveFormsModule, 
   Validators 
 } from '@angular/forms';
+import { combineLatest } from 'rxjs';
 import { 
   debounceTime, 
+  startWith,
   distinctUntilChanged, 
   switchMap, 
-  filter, 
-  tap 
+  tap, 
 } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { HttpBookService } from '../../../core/services/http-book.service';
 import { ApiBookData } from '../../../shared/types/api-book-data';
 import { IconComponent } from '../../../shared/components/icon/icon';
 import { Button } from '../../../shared/components/button/button';
 import { CardComponent } from '../../../shared/components/card/card';
+import { CoverFallbackPipe } from '../../../shared/pipes/cover-fallback-pipe-pipe';
 
 @Component({
   selector: 'app-search-page',
@@ -30,41 +33,50 @@ import { CardComponent } from '../../../shared/components/card/card';
     ReactiveFormsModule, 
     IconComponent, 
     Button, 
-    CardComponent
+    CardComponent,
+    CoverFallbackPipe
   ], 
   templateUrl: './search-page.html'
 })
-export class SearchPage implements OnInit {
+export class SearchPage {
   private bookService = inject(HttpBookService);
   
-  books = signal<ApiBookData[]>([]);
   isLoading = signal(false);
+  currentPage = signal(1);
 
   formGroup = new FormGroup({
     bookInput: new FormControl('', { nonNullable: true })
   });
 
-  ngOnInit() {
+  // An Observable defines the stream of search
+  private books$ = combineLatest([
     this.formGroup.controls.bookInput.valueChanges.pipe(
-      debounceTime(400),           // It waits 400ms
-      distinctUntilChanged(),      // The data fetching proceeds only if the text has changed
-      filter(query => query.length > 2), 
-      tap(() => this.isLoading.set(true)),
-      switchMap(query => this.bookService.searchBooks(query)) // It cancels the previous search if a new one starts
-    ).subscribe({
-      next: (results) => {
-        this.books.set(results);
-        this.isLoading.set(false);
-      },
-      error: (err) => {
-        console.error(err);
-        this.isLoading.set(false);
+      startWith(this.formGroup.controls.bookInput.value),
+      debounceTime(400),
+      distinctUntilChanged(),
+      tap(() => this.currentPage.set(1))
+    ),
+    toObservable(this.currentPage)
+  ]).pipe(
+    switchMap(([query, page]) => {
+      if (query.length <= 2) {
+        return of([]); // if the query è short, we emit an empty array 
       }
-    });
-  }
+      this.isLoading.set(true);
+      return this.bookService.searchBooks(query, page).pipe(
+        tap(() => this.isLoading.set(false))
+      );
+    })
+  );
+
+  // if there isn't data, we use an empty array []
+  books = toSignal(this.books$, { initialValue: [] });
+
+  // Metodi per la UI
+  goToNext() { this.currentPage.update(p => p + 1); }
+  goToPrev() { this.currentPage.update(p => Math.max(1, p - 1)); }
 
   clearSearch() {
     this.formGroup.controls.bookInput.setValue(''); 
-    this.books.set([]);
   }
 }

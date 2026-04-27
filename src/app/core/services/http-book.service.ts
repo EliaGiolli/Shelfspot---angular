@@ -12,13 +12,22 @@ export class HttpBookService {
     private readonly API_URL = 'https://openlibrary.org/search.json';
 
     // definition of the method that will be called by the component(s)
-    searchBooks(query: string): Observable<ApiBookData[]> {
-        return this.http.get<{ docs: ApiBookData[] }>(`${this.API_URL}?q=${encodeURIComponent(query)}`)
-            .pipe(
-                // OpenLibrary returns an object with an array 'docs'
-                map(response => response.docs)
-            );
+    searchBooks(query: string, page: number = 1): Observable<ApiBookData[]> {
+        // The OpenLibrary API has a "page" param
+        const params = `?q=${encodeURIComponent(query)}&page=${page}&limit=12`;
+        return this.http.get<{ docs: ApiBookData[] }>(`${this.API_URL}${params}`)
+            .pipe(map(response => response.docs ? response.docs.slice(0, 12) : []));
     }
 
-    searchBookById(id:string, query:string) {}
+    searchBookById(id:string):Observable<ApiBookData | null> {
+        return this.http.get<ApiBookData>(`https://openlibrary.org/works/${id}.json`);
+    }
+
+    //It returns only the first result
+    getFirstBookByQuery(query: string): Observable<ApiBookData | null> {
+        return this.searchBooks(query)
+            .pipe(
+                map(books => books.length > 0 ? books[0] : null)
+            );
+    }
 }

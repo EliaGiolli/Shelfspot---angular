@@ -6,10 +6,11 @@ import { Herosection } from "../../../shared/components/herosection/herosection"
 import { reviews } from '../../../core/models/reviews.model';
 import { benefits } from '../../../core/models/benefits.model';
 import { FAQs } from '../../../core/models/faqs.model';
+import { CardComponent } from '../../../shared/components/card/card';
 
 @Component({
   selector: 'app-homepage',
-  imports: [IconComponent, Herosection],
+  imports: [IconComponent, Herosection, CardComponent],
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
 })

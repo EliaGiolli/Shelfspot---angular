@@ -1,4 +1,4 @@
-<section class="flex flex-col items-center w-full max-w-4xl mx-auto p-8" aria-labelledby="main-title">
+<section class="flex flex-col items-center w-full max-w-7xl mx-auto p-8" aria-labelledby="main-title">
   
   <header class="flex flex-col items-center text-center gap-4 mb-10">
     <div class="flex items-center gap-4">
@@ -12,7 +12,7 @@
     </p>
   </header>
 
-  <div class="w-full flex flex-col gap-4">
+  <div class="w-full max-w-4xl flex flex-col gap-4">
     <div class="w-full bg-white rounded-3xl shadow-2xl shadow-primary/5 p-2 border border-primary/5 relative">
       <form [formGroup]="formGroup" role="search" class="relative">
         <label for="book-search-input" class="sr-only">Search for books by title or author</label>
@@ -49,14 +49,17 @@
   </div>
 
   <div class="w-full mt-8" role="region" aria-live="polite" aria-label="Search results">
+    
     @if (books().length > 0) {
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         @for (book of books(); track book.key) {
           <app-card [titleId]="'title-' + book.key">
             <div card-header class="aspect-3/4 overflow-hidden rounded-xl bg-secondary/20 relative">
-               <img [src]="'https://covers.openlibrary.org/b/id/' + book.cover_i + '-M.jpg'" 
-                    [alt]="'Cover of ' + book.title" 
-                    class="w-full h-full object-cover">
+               <img 
+                [src]="book.cover_i | coverFallbackPipe:'M'" 
+                [alt]="'Cover of ' + book.title" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+               >
             </div>
 
             <div card-body>
@@ -72,7 +75,7 @@
               <app-button 
                 variant="primary" 
                 class="w-full"
-                [attr.aria-label]="'View details for ' + book.title"
+                [ariaLabel]="'View details for ' + book.title"
                 [disabled]="isLoading()"
               >
                 View Details
@@ -81,6 +84,31 @@
           </app-card>
         }
       </div>
+
+      <nav class="flex justify-between items-center mt-12 py-6 border-t border-primary/5 w-full" aria-label="Pagination">
+        <button 
+          (click)="goToPrev()" 
+          [disabled]="currentPage() === 1 || isLoading()"
+          class="flex items-center gap-2 text-primary font-bold disabled:opacity-30 disabled:cursor-not-allowed group transition-colors hover:text-accent"
+        >
+          <app-icon name="chevron-left.svg" [size]="24" class="group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
+          Previous Page
+        </button>
+
+        <span class="font-serif italic text-primary/60" aria-current="page">
+          Page {{ currentPage() }}
+        </span>
+
+        <button 
+          (click)="goToNext()" 
+          [disabled]="isLoading() || books().length < 12"
+          class="flex items-center gap-2 text-primary font-bold disabled:opacity-30 disabled:cursor-not-allowed group transition-colors hover:text-accent"
+        >
+          Next Page
+          <app-icon name="chevron-right.svg" [size]="24" class="group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+        </button>
+      </nav>
+
     } @else if (!isLoading() && formGroup.controls.bookInput.value.length > 2) {
       <div class="text-center py-20 text-primary/40 italic font-serif" role="alert">
         No books found for your search. Try another title?
