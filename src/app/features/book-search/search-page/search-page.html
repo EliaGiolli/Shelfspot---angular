@@ -1,1 +1,90 @@
-<p>search-page works!</p>
+<section class="flex flex-col items-center w-full max-w-4xl mx-auto p-8" aria-labelledby="main-title">
+  
+  <header class="flex flex-col items-center text-center gap-4 mb-10">
+    <div class="flex items-center gap-4">
+      <app-icon name="book-open.svg" [size]="48" class="text-accent" aria-hidden="true" />
+      <h1 class="text-primary text-4xl font-serif font-bold italic tracking-tight" id="main-title">
+        Discovery <span class="text-accent">Hub</span>
+      </h1>
+    </div>
+    <p class="text-primary/70 max-w-2xl leading-relaxed">
+      Welcome to the ShelfSpot archives. Search millions of titles and find your next favorite read.
+    </p>
+  </header>
+
+  <div class="w-full flex flex-col gap-4">
+    <div class="w-full bg-white rounded-3xl shadow-2xl shadow-primary/5 p-2 border border-primary/5 relative">
+      <form [formGroup]="formGroup" role="search" class="relative">
+        <label for="book-search-input" class="sr-only">Search for books by title or author</label>
+        <input 
+          id="book-search-input"
+          type="search" 
+          placeholder="Search for titles, authors or ISBN..." 
+          formControlName="bookInput"
+          class="w-full pl-14 pr-14 py-5 bg-transparent text-primary text-lg focus:outline-accent placeholder:text-primary/30"
+          [attr.aria-busy]="isLoading()"
+        >
+        <app-icon name="search.svg" [size]="32" class="absolute left-5 top-1/2 -translate-y-1/2 text-primary/30" aria-hidden="true" />
+        
+        @if (isLoading()) {
+          <div class="absolute right-5 top-1/2 -translate-y-1/2" role="status" aria-live="polite">
+             <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-accent"></div>
+             <span class="sr-only">Searching...</span>
+          </div>
+        }
+      </form>
+    </div>
+
+    @if (books().length > 0) {
+      <div class="flex justify-end">
+        <button 
+          (click)="clearSearch()" 
+          class="text-xs font-bold uppercase tracking-widest text-primary/40 hover:text-accent transition-colors flex items-center gap-2"
+          aria-label="Clear all search results"
+        >
+          <app-icon name="trash.svg" [size]="16" aria-hidden="true" /> Clear Results
+        </button>
+      </div>
+    }
+  </div>
+
+  <div class="w-full mt-8" role="region" aria-live="polite" aria-label="Search results">
+    @if (books().length > 0) {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (book of books(); track book.key) {
+          <app-card [titleId]="'title-' + book.key">
+            <div card-header class="aspect-3/4 overflow-hidden rounded-xl bg-secondary/20 relative">
+               <img [src]="'https://covers.openlibrary.org/b/id/' + book.cover_i + '-M.jpg'" 
+                    [alt]="'Cover of ' + book.title" 
+                    class="w-full h-full object-cover">
+            </div>
+
+            <div card-body>
+              <h3 [id]="'title-' + book.key" class="font-serif font-bold text-primary truncate leading-tight">
+                {{ book.title }}
+              </h3>
+              <p class="text-sm text-primary/60 truncate italic mt-1">
+                {{ book.author || 'Unknown Author' }}
+              </p>
+            </div>
+
+            <div card-footer>
+              <app-button 
+                variant="primary" 
+                class="w-full"
+                [attr.aria-label]="'View details for ' + book.title"
+                [disabled]="isLoading()"
+              >
+                View Details
+              </app-button>
+            </div>
+          </app-card>
+        }
+      </div>
+    } @else if (!isLoading() && formGroup.controls.bookInput.value.length > 2) {
+      <div class="text-center py-20 text-primary/40 italic font-serif" role="alert">
+        No books found for your search. Try another title?
+      </div>
+    }
+  </div>
+</section>
