@@ -20,11 +20,12 @@ import {
 import { of } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { HttpBookService } from '../../../core/services/http-book.service';
-import { ApiBookData } from '../../../shared/types/api-book-data';
 import { IconComponent } from '../../../shared/components/icon/icon';
 import { Button } from '../../../shared/components/button/button';
 import { CardComponent } from '../../../shared/components/card/card';
 import { CoverFallbackPipe } from '../../../shared/pipes/cover-fallback-pipe-pipe';
+import { Router, RouterOutlet } from '@angular/router';
+import { BookSearchResult } from '../../../core/schemas/book-api.schema';
 
 @Component({
   selector: 'app-search-page',
@@ -34,13 +35,14 @@ import { CoverFallbackPipe } from '../../../shared/pipes/cover-fallback-pipe-pip
     IconComponent, 
     Button, 
     CardComponent,
-    CoverFallbackPipe
+    CoverFallbackPipe,
+    RouterOutlet
   ], 
   templateUrl: './search-page.html'
 })
 export class SearchPage {
   private bookService = inject(HttpBookService);
-  
+  private router = inject(Router);
   isLoading = signal(false);
   currentPage = signal(1);
 
@@ -78,5 +80,13 @@ export class SearchPage {
 
   clearSearch() {
     this.formGroup.controls.bookInput.setValue(''); 
+  }
+
+  viewDetails(book: BookSearchResult) {
+    // Puliamo la stringa '/works/OL12345W' per ottenere solo 'OL12345W'
+    const bookId = book.key.replace('/works/', '');
+    
+    // Navighiamo verso la rotta specifica
+    this.router.navigate(['/books/search', bookId]);
   }
 }

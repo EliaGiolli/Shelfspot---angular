@@ -4,5 +4,6 @@ export interface ApiBookData {
     author: string[];
     subject:string[];
     first_publish_year: number,
-    cover_i: number
+    cover_i: number,
+    description: string;
 }

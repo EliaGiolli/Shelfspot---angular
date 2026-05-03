@@ -27,7 +27,7 @@ export const routes: Routes = [
       },
       {
         path: 'search/:id',
-        loadComponent: () => import('./features/book-search/search-modal/search-modal').then(m => m.SearchModal)
+        loadComponent: () => import('./features/book-search/search-modal/search-modal').then(m => m.SearchModalComponent)
       },
       {
         path: 'favorites',

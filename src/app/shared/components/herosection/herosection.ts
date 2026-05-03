@@ -23,7 +23,7 @@ export class Herosection implements OnInit {
 
   ngOnInit() {
     this.bookService.getFirstBookByQuery('The Great Gatsby').subscribe(
-      book => this.featuredBook.set(book)
+      book => this.featuredBook.set(book as ApiBookData)
     );
   }
 }

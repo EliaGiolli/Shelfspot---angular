@@ -1,1 +1,75 @@
-<p>search-modal works!</p>
+<dialog #bookDialog (close)="goBack()" class="p-0 overflow-visible">
+    <div class="max-w-5xl mx-auto p-4 sm:p-12 h-full flex items-center justify-center">
+      
+      @if (book(); as bookData) {
+        <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 relative w-full max-h-[90vh]">
+          
+          <!-- Pulsante chiusura rapida -->
+          <button (click)="goBack()" 
+                  class="absolute top-6 left-6 z-10 flex items-center gap-2 text-primary/40 hover:text-accent transition-colors font-bold uppercase tracking-widest text-[10px]">
+            <app-icon name="arrow-left.svg" [size]="40" /> Back
+          </button>
+  
+          <!-- Colonna Immagine -->
+          <div class="bg-secondary/20 p-8 flex items-center justify-center">
+            <div class="w-full max-w-[280px] aspect-3/4 shadow-2xl rounded-2xl overflow-hidden">
+               <img [src]="bookData.cover_i | coverFallbackPipe:'L'" 
+                    [alt]="bookData.title" 
+                    class="w-full h-full object-cover">
+            </div>
+          </div>
+  
+          <!-- Colonna Contenuti -->
+          <div class="p-8 sm:p-10 flex flex-col gap-5 overflow-y-auto">
+            <header>
+              <h1 class="text-3xl sm:text-4xl font-serif font-bold text-primary leading-tight">
+                {{ bookData.title }}
+              </h1>
+              <p class="text-lg text-accent font-serif italic mt-1">
+                {{ bookData.author?.join(', ') || 'Unknown Author' }}
+              </p>
+            </header>
+  
+            <div class="flex flex-wrap gap-2">
+               <span class="px-3 py-1.5 bg-primary/5 rounded-full text-[10px] font-bold text-primary/60 uppercase tracking-tighter">
+                 Year: {{ bookData.first_publish_year || 'N/A' }}
+               </span>
+            </div>
+  
+            <!-- Usiamo subject come descrizione se la description è vuota -->
+            <p class="text-primary/70 leading-relaxed text-sm overflow-hidden line-clamp-6">
+              {{ bookData.subject?.join(', ') || 'No description available for this work.' }}
+            </p>
+  
+            <div class="mt-auto pt-6 border-t border-primary/5 flex gap-3">
+  
+                <!-- Bottone Prestito con stato dinamico -->
+                <app-button 
+                  variant="primary" 
+                  class="flex-1"
+                  appClickFeedback
+                  [disabled]="loanService.isBorrowed(bookData.key)"
+                  (click)="loanService.addLoan(bookData)">
+                  {{ loanService.isBorrowed(bookData.key) ? 'Already Borrowed' : 'Borrow Book' }}
+                </app-button>
+              
+                <!-- Bottone Preferiti con icona dinamica -->
+                <app-button 
+                  variant="secondary" 
+                  appClickFeedback
+                  (click)="favoriteService.toggleFavorite(bookData)">
+                  <app-icon 
+                    [name]="favoriteService.isFavorite(bookData) ? 'badge-check.svg' : 'heart.svg'" 
+                    [size]="40" 
+                    [class.text-accent]="favoriteService.isFavorite(bookData)" />
+                </app-button>
+              
+              </div>
+          </div>
+        </div>
+      } @else {
+        <!-- Skeleton Loader centrato -->
+        <div class="bg-white rounded-[2.5rem] w-full max-w-4xl h-[500px] animate-pulse"></div>
+      }
+    </div>
+  </dialog>

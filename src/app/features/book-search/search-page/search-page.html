@@ -42,7 +42,7 @@
           class="text-xs font-bold uppercase tracking-widest text-primary/40 hover:text-accent transition-colors flex items-center gap-2"
           aria-label="Clear all search results"
         >
-          <app-icon name="trash.svg" [size]="16" aria-hidden="true" /> Clear Results
+          <app-icon name="trash.svg" [size]="40" aria-hidden="true" /> Clear Results
         </button>
       </div>
     }
@@ -67,7 +67,7 @@
                 {{ book.title }}
               </h3>
               <p class="text-sm text-primary/60 truncate italic mt-1">
-                {{ book.author || 'Unknown Author' }}
+                {{ book.author_name?.join(', ') || 'Unknown Author' }}
               </p>
             </div>
 
@@ -77,6 +77,7 @@
                 class="w-full"
                 [ariaLabel]="'View details for ' + book.title"
                 [disabled]="isLoading()"
+                (click)="viewDetails(book)"
               >
                 View Details
               </app-button>
@@ -91,7 +92,7 @@
           [disabled]="currentPage() === 1 || isLoading()"
           class="flex items-center gap-2 text-primary font-bold disabled:opacity-30 disabled:cursor-not-allowed group transition-colors hover:text-accent"
         >
-          <app-icon name="chevron-left.svg" [size]="24" class="group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
+          <app-icon name="arrow-left.svg" [size]="40" class="group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
           Previous Page
         </button>
 
@@ -105,7 +106,7 @@
           class="flex items-center gap-2 text-primary font-bold disabled:opacity-30 disabled:cursor-not-allowed group transition-colors hover:text-accent"
         >
           Next Page
-          <app-icon name="chevron-right.svg" [size]="24" class="group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+          <app-icon name="arrow-right.svg" [size]="40" class="group-hover:translate-x-1 transition-transform" aria-hidden="true" />
         </button>
       </nav>
 
@@ -115,4 +116,5 @@
       </div>
     }
   </div>
+  <router-outlet />
 </section>
