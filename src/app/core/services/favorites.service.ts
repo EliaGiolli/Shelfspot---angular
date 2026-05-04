@@ -3,10 +3,10 @@ import { ApiBookData } from "../../shared/types/api-book-data";
 
 @Injectable({ providedIn: 'root' })
 export class FavoriteService {
-  // Signal privato per gestire lo stato interno
+  // Private signal to manage the internal state
   private favoritesSignal = signal<ApiBookData[]>(this.loadFromStorage());
 
-  // Signal pubblico di sola lettura per i componenti
+  // Public signal for readonly components
   favorites = this.favoritesSignal.asReadonly();
 
   toggleFavorite(book: ApiBookData) {

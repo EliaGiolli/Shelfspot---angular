@@ -43,7 +43,7 @@ export class SearchModalComponent {
   public loanService = inject(LoanService)
   private location = inject(Location);
 
-  // Recupera il riferimento all'elemento <dialog> nel template
+  // It gets the reference to the <dialog> element in the template
   dialog = viewChild.required<ElementRef<HTMLDialogElement>>('bookDialog');
 
   id = input.required<string>();
@@ -55,11 +55,11 @@ export class SearchModalComponent {
   );
 
   constructor() {
-    // Reagisce automaticamente quando il libro viene caricato
+    // It reacts automatically when the book is loaded
     effect(() => {
       const dialogEl = this.dialog().nativeElement;
       if (this.book()) {
-        dialogEl.showModal(); // Apre il modale nativo
+        dialogEl.showModal(); 
       } else {
         dialogEl.close();
       }

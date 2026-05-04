@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-// Schema base con i campi comuni a entrambi
+// Base schema with common fields for both
 const BaseBookSchema = z.object({
   key: z.string(),
   title: z.string(),
@@ -9,11 +9,11 @@ const BaseBookSchema = z.object({
   first_publish_year: z.number().optional(),
 });
 
-// 1. Schema per i risultati della ricerca (Light)
+// 1. Schema for the search results (Light)
 export const BookSearchResultSchema = BaseBookSchema;
 export type BookSearchResult = z.infer<typeof BookSearchResultSchema>;
 
-// 2. Schema per il dettaglio del libro (Full)
+// 2. Schema for the book detail (Full)
 export const BookDetailSchema = BaseBookSchema.extend({
   subject: z.array(z.string()).optional().default([]),
   description: z.string().optional().or(z.object({ value: z.string() }).transform(d => d.value)),
@@ -21,7 +21,7 @@ export const BookDetailSchema = BaseBookSchema.extend({
 });
 export type BookDetail = z.infer<typeof BookDetailSchema>;
 
-// Schema per la risposta della ricerca
+// Schema for the search response
 export const SearchResponseSchema = z.object({
   docs: z.array(BookSearchResultSchema)
 });

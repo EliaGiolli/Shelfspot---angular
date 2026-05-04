@@ -1,59 +1,72 @@
-# Shelfspot
+# 📚 ShelfSpot | Modern Library Management
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+> **Status:** 🚧 **Project under active development**
 
-## Development server
+ShelfSpot is a high-performance library management platform designed to deliver a seamless and reactive user experience. Built with **Angular 19+**, it showcases modern framework architectures including Signal-based reactivity and strict Zod data validation.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## 🚀 **Completed Features**
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- ⚡ **Reactive Core Architecture:**  
+  State management via Angular **Signals** for fine-grained reactivity and ultra-fast UI updates.
 
-## Code scaffolding
+- 🔎 **Discovery Hub:**  
+  Advanced book search using the **OpenLibrary API**, leveraging RxJS (`switchMap`, `toSignal`) for efficient async data streams.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- 🖼️ **Native Modal Book Details:**  
+  Uses the native `<dialog>` element for high-performance modals, including focus trapping for accessibility and deep-linking via URL parameters.
 
-```bash
-ng generate component component-name
-```
+- 🛡️ **Runtime Validation with Zod:**  
+  **Zod** schemas validate and sanitize API responses, maintaining strict, type-safe data models (`BookDetail`, `BookSearchResult`).
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- 🔗 **Type-Safe Services:**  
+  Decoupled architecture using **Injection Tokens** for API configs and strict TypeScript interfaces throughout the data layer.
 
-```bash
-ng generate --help
-```
+- 🟦 **Bento Grid UI:**  
+  Modern, responsive design powered by **Tailwind CSS** with custom icons and a refined color palette.
 
-## Building
+---
 
-To build the project run:
+## 🛠 **Currently in Development (Forms & UX/UI)**
 
-```bash
-ng build
-```
+- 📬 **Signal-Based Contact Form:**  
+  Modern messaging form using signal-driven state instead of `ReactiveFormsModule` for lighter, faster UX.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- ✅ **Advanced Defensive Validation:**  
+  Custom email validators for professional domains, with errors triggered post-user interaction (touched state only).
 
-## Running unit tests
+- ♿ **A11y & UX Optimization:**  
+  Enhanced accessibility with `aria-invalid`, `aria-describedby`, and dynamic screen reader alerts (`role="alert"`).
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+- 💾 **Loan & Favorites Persistence:**  
+  Finalizing **LoanService** and **FavoriteService** for robust, real-time local data persistence.
 
-```bash
-ng test
-```
+- ✨ **Refined UI Feedback:**  
+  Implementing skeleton loaders, micro-interactions for button states (loading / success / error), and smooth transitions.
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🧰 **Tech Stack**
 
-```bash
-ng e2e
-```
+| 🧩 Feature             | ⚙️ Technology / Framework                      |
+|-----------------------|-----------------------------------------------|
+| 🏗️ Framework          | Angular 19+ (Signals, Standalone Components)  |
+| 🎨 Styling            | Tailwind CSS / Lucide Icons                   |
+| 🔄 State Management   | Signals / RxJS (Interop)                      |
+| ✔️ Validation         | Zod / Signal-based Form Logic                  |
+| 🌐 API Integration    | OpenLibrary API                               |
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## 📝 **Note for Recruiters**
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is a showcase of specialization in **Zoneless-ready Angular** applications. The goal is to demonstrate how to build complex, accessible, and high-performance interfaces by leveraging modern framework APIs and functional programming patterns.
+
+---
+
+## 🔗 **Quick Links**
+
+- 🚀 [Live Demo](#)
+- 📂 [API Documentation](#)
+- 🛠 [Main Repository](#)

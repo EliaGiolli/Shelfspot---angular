@@ -2,11 +2,15 @@ import {
     Injectable, 
     inject,
 } from "@angular/core";
+// HTTP
 import { HttpClient } from "@angular/common/http";
+// RxJS and Operators
 import { map, Observable } from "rxjs";
+// Tokens
+import { API_URL } from "../tokens/api.token";
+// Types and Schemas
 import { type ApiBookData } from "../../shared/types/api-book-data";
 import { type BookSearchResult,  SearchResponseSchema} from "../schemas/book-api.schema";
-import { API_URL } from "../tokens/api.token";
 
 @Injectable({ providedIn: 'root' })
 export class HttpBookService {

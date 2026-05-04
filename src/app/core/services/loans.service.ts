@@ -8,10 +8,10 @@ import { type Loan } from '../../shared/types/loans.types';
 export class LoanService {
   private loansSignal = signal<Loan[]>([]);
 
-  // Espone il segnale come ReadOnly
+  // It exposes the signal as ReadOnly
   loans = this.loansSignal.asReadonly();
 
-  // Dato derivato: conta i libri in prestito
+  // Derived data: counts the books in loan
   loanCount = computed(() => this.loansSignal().length);
 
   addLoan(book: BookDetail) {
@@ -21,7 +21,7 @@ export class LoanService {
       id: Math.random().toString(36).substring(2),
       book,
       loanDate: new Date(),
-      dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) // 14 giorni
+      dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) // 14 days
     };
 
     this.loansSignal.update(current => [...current, newLoan]);
